@@ -1,0 +1,103 @@
+body{
+  background-color: rgb(209, 201, 190);
+}
+
+
+.graphs{
+  list-style-type: none;
+}
+
+.graphs ul{
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  list-style-position: inside;
+  overflow: scroll;
+  padding: auto;
+  width: 70%;
+}
+.graphs li {
+  color: white;
+  display: flex;
+  flex-direction: row;
+}
+.graphs li:hover {
+  background-color: rgb(173, 235, 173);
+  color: black;
+}
+.graphs li.selected {
+  background-color: rgb(99, 212, 102);
+  color: rgb(59, 143, 62);
+  text-decoration: line-through;
+}
+
+.cuadrito{
+  background-color: blue;
+}
+
+
+.topbar{
+  align-items: center;
+  background-color: white;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  left: 0;
+  padding: 1rem;
+  position: fixed;
+  width: 100%;
+}
+
+/* Buttons */
+.button {
+  background-color: white;
+  border-radius: 8px;
+  border: none;
+  color: gray;
+  display: inline-block;
+  font-size: 16px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem;
+  text-align: center;
+  text-decoration: none;
+  width: 30%;
+}
+
+.addbutton {
+  background-color: #4CAF50;
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 5px #999;
+  color: white;
+  display: inline-block;
+  font-size: 16px;
+  margin-left: 3%;
+  margin-right: 3%;
+  padding: 0.2rem;
+  text-align: center;
+  text-decoration: none;
+  width: 15%;
+}
+
+.addbutton:active {
+  background-color: rgb(53, 134, 56);
+  box-shadow: 0 1.5px #666;
+  transform: translateY(4px);
+}
+
+/* Input bar */
+.graphinput{
+
+  margin-left: 3%;
+  margin-right: 3%;
+  overflow: scroll;
+  padding: 0.5rem;
+  width: 80%;
+}
+
+/*
+   recorrer array de graficas
+   mostrar cada grafica generarGrafica
+*/
+

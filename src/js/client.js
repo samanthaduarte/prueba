@@ -1,108 +1,67 @@
-import expect from 'expect';
-import { createStore } from 'redux';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Immutable from 'immutable';
+const state = {
+  graphList: []
+};
 
-// Javascript the good parts
 
-const Counter = ({ value, incrementAction, decrementAction, removeAction }) => (
-  <div>
-    <h1>{ value }</h1>
-    <button onClick={ incrementAction }>+</button>
-    <button onClick={ decrementAction }>-</button>
-    <button onClick={ removeAction }>x</button>
-  </div>
-);
+const render = lState => {
 
-const CounterList = ({ list }) => (
-  <div>
-    {
-      list.map(
-        (value, i) => (
-          <Counter
-            key={ i }
-            value={ value }
-            index={ i }
-            incrementAction={
-              () => store.dispatch({
-                type: 'INCREMENT',
-                payload: { index: i }
-              })
-            }
-            decrementAction={
-              () => store.dispatch({
-                type: 'DECREMENT',
-                payload: { index: i }
-              })
-            }
-            removeAction={
-              () => store.dispatch({
-                type: 'REMOVE_COUNTER',
-                payload: {
-                  index: i
-                }
-              })
-            }
-          />
-        )
-      )
+  const topBar = document.createElement('div');
+  topBar.className = 'topbar';
+ 
+  let graphs = document.createElement('ul');
+  graphs.className = 'graphs';
+
+  const addBtn = document.createElement('button');
+  addBtn.className = 'addbutton';
+  addBtn.innerHTML = 'Generar';
+
+  let graphInput = document.createElement('input');
+  graphInput.className = 'graphinput';
+  graphInput.setAttribute("type", "text");
+
+  let number = graphInput.value
+  // Clear previous root content
+  if (root.hasChildNodes()) {
+    root.innerHTML = null;
+  }
+  
+  // Main rendering
+  
+  root.appendChild(topBar);
+  root.appendChild(graphs);
+  topBar.appendChild(graphInput);
+  topBar.appendChild(addBtn);
+
+
+  // para cada grafica del array
+  for(let u = 0; u<lState.graphList.length; u++){
+    console.log("grafica"+u+lState.graphList[u]);
+    const graphs = document.createElement('ul');
+    // crear una linea de barras
+    for(let i = 0; i<lState.graphList[u]; i++){
+      console.log('cuadrito');
+      const cuadrito = document.createElement('li');
+      graphs.appendChild(cuadrito);
     }
-    <button onClick={ () => store.dispatch({ type: 'ADD_COUNTER' }) }>Add counter</button>
-  </div>
-);
-
-const validateIndex = (index, list) => 0 <= index && index < list.size;
-
-// Reducer
-const counterList = (state = Immutable.List.of(), action) => {
-
-  if(typeof action.payload !== 'undefined'){
-    var { index } = action.payload;
   }
 
-  switch(action.type){
-    case 'ADD_COUNTER':
-      return state.push(0);
+  
+  // --------------------- Events ------------------------
 
-    case 'REMOVE_COUNTER':
+  addBtn.onclick = () => {  
+    number = graphInput.value;
+    console.log(number);
+    // Delete input box content
+    graphInput.value = '';
+    // Add limit value (graph) to array
+    lState.graphList.push(number);
+    console.log(lState.graphList);
 
-      if(validateIndex(index, state)){
-        return state.delete(index);
-      }
+    render(lState);
+  };
 
-      return state;
 
-    case 'INCREMENT':
-
-      if(validateIndex(index, state)){
-        return state.update(index, (v) => v + 1);
-      }
-
-      return state;
-
-    case 'DECREMENT':
-
-      if(validateIndex(index, state)){
-        return state.update(index,  (v) => v - 1);
-      }
-
-      return state;
-
-    default:
-      return state;
-  }
 }
+render(state);
 
-// createStore: reducer --> store
-const store = createStore(counterList);
 
-const render = () => {
-  ReactDOM.render(
-    <CounterList list={ store.getState() } />,
-    document.getElementById('root')
-  )
-}
-
-store.subscribe(render);
-render();
